@@ -67,6 +67,10 @@
     <p style="color: green; text-align: center"><%= request.getAttribute("success") %></p>
     <% } %>
 
+    <% if (request.getAttribute("error") != null) { %>
+    <p style="color: red; text-align: center"><%= request.getAttribute("error") %></p>
+    <% } %>
+
     <form action="upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="firstName">First Name:</label>
