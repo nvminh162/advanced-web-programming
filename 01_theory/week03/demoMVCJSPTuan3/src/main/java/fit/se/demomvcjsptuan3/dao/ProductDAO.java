@@ -13,7 +13,6 @@ public class ProductDAO {
 
     static DataSource dataSource = null;
 
-
     public ProductDAO(DataSource dataSource) {
         this.dataSource = dataSource;
     }

@@ -12,15 +12,15 @@
     <title>Title</title>
 </head>
 <body>
-    Họ tên sinh vien:  ${param.hoten}
+Họ tên sinh vien: ${param.hoten}
 <br>
-Email:  ${param.email}}
+Email: ${param.email}}
 <br>
 Ngon ngữ:
 <ul>
- <c:forEach var="item" items="${paramValues.lang}">
+    <c:forEach var="item" items="${paramValues.lang}">
         <li>${item} </li>
- </c:forEach>
+    </c:forEach>
 </ul>
 <br/>
 Số tin chỉ ${param.stc}
@@ -29,11 +29,11 @@ Số tin chỉ ${param.stc}
 <br/>
 
 Đơn gia ${param.price}
-    <c:set var="price" value="${param.price}"/>
+<c:set var="price" value="${param.price}"/>
 
 <br/>
 
 Học phí: <c:out value="${credit*price}"/>
 
-  </body>
+</body>
 </html>

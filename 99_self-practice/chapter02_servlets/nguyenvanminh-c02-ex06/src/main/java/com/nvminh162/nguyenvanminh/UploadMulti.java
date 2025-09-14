@@ -22,7 +22,10 @@ public class UploadMulti extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Dir file in server (in webapp dir)
+        // F:\University\2025_HK1\LapTrinhWWW\github\99_self-practice\chapter02_servlets\nguyenvanminh-c02-ex06\target\nguyenvanminh-1.0-SNAPSHOT\uploads
         String uploadPath = getServletContext().getRealPath("") + UPLOAD_DIR;
+
+        System.out.println(uploadPath);
         // File.separator
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
