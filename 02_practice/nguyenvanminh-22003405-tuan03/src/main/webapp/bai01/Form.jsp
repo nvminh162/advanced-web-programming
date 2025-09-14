@@ -16,6 +16,7 @@
             border-radius: 8px;
             background-color: #f8f9fa;
         }
+
         .form-title {
             text-align: center;
             background-color: #e9ecef;
@@ -25,24 +26,29 @@
             font-weight: bold;
             border-bottom: 1px solid #dee2e6;
         }
+
         .qualification-table {
             width: 100%;
             margin-top: 10px;
         }
+
         .qualification-table th,
         .qualification-table td {
             border: 1px solid #dee2e6;
             padding: 8px;
             text-align: center;
         }
+
         .qualification-table th {
             background-color: #e9ecef;
             font-weight: bold;
         }
+
         .btn-submit {
             background-color: #007bff;
             border-color: #007bff;
         }
+
         .btn-reset {
             background-color: #6c757d;
             border-color: #6c757d;
@@ -54,7 +60,7 @@
     <div class="form-container">
         <div class="form-title">Student Registration Form</div>
 
-        <form action="${pageContext.request.contextPath}/student">
+        <form action="${pageContext.request.contextPath}/student" method="post">
             <!-- Personal Information -->
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -70,7 +76,8 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="dd/mm/yyyy">
+                    <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                           placeholder="dd/mm/yyyy">
                 </div>
                 <div class="col-md-6">
                     <label for="mobile" class="form-label">Mobile</label>
@@ -152,7 +159,8 @@
                             <label class="form-check-label" for="dancing">Dancing</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="sketching" name="hobbies" value="sketching">
+                            <input class="form-check-input" type="checkbox" id="sketching" name="hobbies"
+                                   value="sketching">
                             <label class="form-check-label" for="sketching">Sketching</label>
                         </div>
                         <div class="form-check form-check-inline">
