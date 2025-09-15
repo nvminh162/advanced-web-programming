@@ -1,7 +1,7 @@
 CREATE
-    DATABASE IF NOT EXISTS nguyenvanminh22003405_ex03;
+    DATABASE IF NOT EXISTS www_practice_week04;
 
-USE nguyenvanminh22003405_ex03;
+USE www_practice_week04;
 
 DROP TABLE IF EXISTS products;
 
