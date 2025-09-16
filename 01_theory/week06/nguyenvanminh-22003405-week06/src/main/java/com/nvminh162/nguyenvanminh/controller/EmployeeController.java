@@ -23,7 +23,6 @@ public class EmployeeController {
         Employee createdEmployee = employeeService.createEmployee(employee);
         return ResponseEntity.ok(createdEmployee);
     }
-    
 
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
