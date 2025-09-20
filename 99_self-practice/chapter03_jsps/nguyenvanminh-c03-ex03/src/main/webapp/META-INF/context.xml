@@ -1,0 +1,14 @@
+<Context>
+    <Resource
+            name="jdbc/nguyenvanminh-c03-ex03"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxTotal="20"
+            maxIdle="10"
+            maxWaitMillis="10000"
+            driverClassName="org.mariadb.jdbc.Driver"
+            url="jdbc:mariadb://localhost:3307/www_c03_ex03"
+            username="root"
+            password="root"
+    />
+</Context>
