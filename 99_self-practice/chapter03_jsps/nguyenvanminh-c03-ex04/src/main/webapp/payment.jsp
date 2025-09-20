@@ -10,7 +10,15 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body style="box-sizing: border-box; padding: 0; margin: 0;">
+<%-- header --%>
+<jsp:include page="./components/header.jsp" />
 
+<div style="width: 100%; height: 100vh;">
+
+</div>
+
+<%-- footer --%>
+<jsp:include page="./components/header.jsp" />
 </body>
 </html>
