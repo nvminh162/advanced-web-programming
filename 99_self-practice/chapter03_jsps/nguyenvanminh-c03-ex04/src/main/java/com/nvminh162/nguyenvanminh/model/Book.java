@@ -3,7 +3,6 @@ package com.nvminh162.nguyenvanminh.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,9 +10,9 @@ import lombok.experimental.FieldDefaults;
 @Data
 public class Book {
     int id;
-    String title;
+    String name;
     String author;
-    String imageName;
+    String image;
     double price;
     int quantity;
 }

@@ -3,25 +3,29 @@ package com.nvminh162.nguyenvanminh.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Data
 public class Cart {
-    List<CartItem> cartItems;
+    public List<CartItem> cartItems;
 
-    public void addBookToCart(Book book) {
+    public Cart() {
+        this.cartItems = new ArrayList<>();
+    }
+
+    public void addBookToCart(Book book, int quantity) {
         cartItems.stream()
-                .filter(it -> it.getBook().getId() == book.getId())
+                .filter(it -> Objects.equals(it.getBook().getId(), book.getId()))
                 .findFirst()
                 .ifPresentOrElse(
-                        it -> it.setQuantity(it.getQuantity() + 1),
+                        it -> it.setQuantity(it.getQuantity() + quantity),
                         () -> cartItems.add(CartItem.builder()
                                 .book(book)
-                                .quantity(1)
+                                .quantity(quantity)
                                 .build())
                 );
     }
