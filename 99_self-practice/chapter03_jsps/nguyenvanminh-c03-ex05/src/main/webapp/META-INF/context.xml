@@ -1,0 +1,13 @@
+<Context>
+    <Resource
+            name="jdbc/www_c03_ex05"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxTotal="20"
+            maxIdle="10"
+            maxWaitMillis="10000"
+            driverClassName="org.mariadb.jdbc.Driver"
+            url="jdbc:mariadb://localhost:3307/www_c03_ex05"
+            username="root"
+            password="root"/>
+</Context>
