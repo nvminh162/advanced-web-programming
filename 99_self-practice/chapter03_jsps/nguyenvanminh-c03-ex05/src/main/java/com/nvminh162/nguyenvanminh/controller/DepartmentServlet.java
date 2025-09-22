@@ -26,6 +26,14 @@ public class DepartmentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Update Department
+        String departmentId = request.getParameter("department-id");
+        if (departmentId != null) {
+            request.setAttribute("department", departmentDAO.findById(Long.parseLong(departmentId)));
+            request.getRequestDispatcher("/department-update.jsp").forward(request, response);
+            return;
+        }
+        // Search List Departments
         String departmentName = request.getParameter("department-name");
         List<Department> departments;
         if (departmentName != null) {
@@ -38,13 +46,26 @@ public class DepartmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
         if (action == null) return;
         switch (action) {
             case "delete":
-                Long deleteDeptId = Long.parseLong(request.getParameter("departmentId"));
-                departmentDAO.deleteById(deleteDeptId);
+                Long deleteDepartmentId = Long.parseLong(request.getParameter("department-id"));
+                try {
+                    departmentDAO.deleteById(deleteDepartmentId);
+                } catch (Exception e) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Phòng ban tồn tại nhân viên, vui lòng xoá nhân viên trước khi xoá phòng ban");
+                }
+                break;
+            case "add":
+                String addDepartmentName = request.getParameter("department-name");
+                departmentDAO.addDepartment(new Department(null, addDepartmentName));
+                break;
+            case "update":
+                Long updateDepartmentId = Long.parseLong(request.getParameter("department-id"));
+                String updateDepartmentName = request.getParameter("department-name");
+                departmentDAO.updateDepartment(new Department(updateDepartmentId, updateDepartmentName));
                 break;
         }
         response.sendRedirect(request.getContextPath() + "/departments");

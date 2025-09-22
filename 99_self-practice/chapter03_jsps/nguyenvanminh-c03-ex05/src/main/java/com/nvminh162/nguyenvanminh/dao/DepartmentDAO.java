@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDAO {
-    private DBUtil dbUtil;
+    private final DBUtil dbUtil;
 
     public DepartmentDAO(DataSource dataSource) {
         this.dbUtil = new DBUtil(dataSource);
@@ -57,7 +57,7 @@ public class DepartmentDAO {
         return departments;
     }
 
-    public boolean deleteById(Long id) {
+    public void deleteById(Long id) {
         String sql = """
                 DELETE FROM departments WHERE id = ?
                 """;
@@ -65,9 +65,57 @@ public class DepartmentDAO {
              PreparedStatement psmt = connection.prepareStatement(sql)
         ) {
             psmt.setLong(1, id);
-            return psmt.executeUpdate() > 0;
+            psmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void addDepartment(Department department) {
+        String sql = """
+                INSERT INTO departments (name) VALUES (?)
+                """;
+        try (Connection connection = dbUtil.getConnection();
+             PreparedStatement psmt = connection.prepareStatement(sql)
+        ) {
+            psmt.setString(1, department.getName());
+            psmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateDepartment(Department department) {
+        String sql = """
+                UPDATE departments SET name = ? WHERE id = ?
+                """;
+        try (Connection connection = dbUtil.getConnection();
+             PreparedStatement psmt = connection.prepareStatement(sql)) {
+            psmt.setString(1, department.getName());
+            psmt.setLong(2, department.getId());
+            psmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Department findById(Long id) {
+        String sql = """
+                SELECT * FROM departments WHERE id = ?
+                """;
+        try (Connection connection = dbUtil.getConnection();
+        PreparedStatement psmt = connection.prepareStatement(sql)
+        ) {
+            psmt.setLong(1, id);
+            try (ResultSet rs = psmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    return new Department(id, name);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
