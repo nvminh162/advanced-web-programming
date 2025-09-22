@@ -23,11 +23,16 @@
                                                   readonly>
         <br/>
         <label for="employee-name">Name</label><input type="text" name="employee-name" id="employee-name"
-                                                    placeholder="Enter your employee name" value="${employee.name}">
+                                                      placeholder="Enter your employee name" value="${employee.name}">
         <label for="employee-salary">Salary</label><input type="number" name="employee-salary" id="employee-salary"
-                                                  placeholder="Enter your employee salary" value="${employee.salary.longValue()}">
-        <label for="employee-department-id">Department</label><input type="text" name="employee-department-id" id="employee-department-id"
-                                                  placeholder="Enter your employee department-id" value="${employee.department.id}">
+                                                          placeholder="Enter your employee salary"
+                                                          value="${employee.salary.longValue()}">
+        <label for="employee-department-id">Department</label>
+        <select name="employee-department-id" id="employee-department-id" required>
+            <c:forEach var="department" items="${departments}">
+                <option value="${department.id}">${department.name}</option>
+            </c:forEach>
+        </select>
         <br/>
         <button type="submit">Update</button>
     </form>

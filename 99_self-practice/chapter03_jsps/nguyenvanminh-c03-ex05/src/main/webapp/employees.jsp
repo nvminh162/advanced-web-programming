@@ -16,11 +16,12 @@
 <jsp:include page="./components/header.jsp"/>
 <div>
     <h1>Employee List</h1>
-    <a href="${pageContext.request.contextPath}/employee-add.jsp">Add Employee</a>
+    <a href="${pageContext.request.contextPath}/employee?action=add">Add Employee</a>
     <form action="employees" method="get">
         <label for="employee-name">Search employee with name:</label>
-        <input type="hidden" name="department-id" id="department-id" value="${param['department-id']}">
+        <input type="hidden" name="action" value="search">
         <input type="text" name="employee-name" id="employee-name">
+        <input type="hidden" name="department-id" id="department-id" value="${param['department-id']}">
         <button type="submit">Search</button>
     </form>
     <table style="width: 100%; text-align: left;">
@@ -41,7 +42,7 @@
                 </td>
                 <td style="border: 1px solid #cccc;">${employee.department.id}</td>
                 <td style="border: 1px solid #cccc; display: flex;">
-                    <a href="${pageContext.request.contextPath}/employee?employee-id=${employee.id}">Edit</a>
+                    <a href="${pageContext.request.contextPath}/employee?action=update&employee-id=${employee.id}">Edit</a>
                     <form action="employee" method="post">
                         <input type="hidden" name="employee-id" value="${employee.id}">
                         <input type="hidden" name="employee-department-id" value="${employee.department.id}">

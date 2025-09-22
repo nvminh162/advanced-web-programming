@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet({"/employee", "/employees"})
@@ -31,25 +30,33 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Update Department
-        String employeeId = request.getParameter("employee-id");
-        if (employeeId != null) {
-            request.setAttribute("employee", employeeDAO.findById(Long.parseLong(employeeId)));
-            request.getRequestDispatcher("/employee-update.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        if (action == null) {
+            Long departmentId = Long.parseLong(request.getParameter("department-id"));
+            List<Employee> employees = employeeDAO.findEmployeesBelongToDepartment(departmentId);
+            request.setAttribute("employees", employees);
+            request.getRequestDispatcher("/employees.jsp").forward(request, response);
             return;
         }
-        // Find List Employees belong to Department (fillAllBeLongDepartment)
-        Long departmentId = Long.parseLong(request.getParameter("department-id"));
-        // Find List Employees belong to Department With Employee name (fillAllBeLongDepartmentWithName)
-        String employeeName = request.getParameter("employee-name");
-        List<Employee> employees;
-        if (employeeName != null) {
-            employees = employeeDAO.findEmployeesBelongToDepartmentWithName(departmentId, employeeName);
-        } else {
-            employees = employeeDAO.findEmployeesBelongToDepartment(departmentId);
+
+        switch (action) {
+            case "update":
+                Long updateEmployeeId = Long.parseLong(request.getParameter("employee-id"));
+                request.setAttribute("employee", employeeDAO.findById(updateEmployeeId));
+                request.setAttribute("departments", departmentDAO.findAll());
+                request.getRequestDispatcher("/employee-update.jsp").forward(request, response);
+                return;
+            case "add":
+                request.setAttribute("departments", departmentDAO.findAll());
+                request.getRequestDispatcher("/employee-add.jsp").forward(request, response);
+                return;
+            case "search":
+                Long searchDepartmentId = Long.parseLong(request.getParameter("department-id"));
+                String searchEmployeeName = request.getParameter("employee-name");
+                List<Employee> searchEmployees = employeeDAO.findEmployeesBelongToDepartmentWithName(searchDepartmentId, searchEmployeeName);
+                request.setAttribute("employees", searchEmployees);
+                request.getRequestDispatcher("/employees.jsp").forward(request, response);
         }
-        request.setAttribute("employees", employees);
-        request.getRequestDispatcher("/employees.jsp").forward(request, response);
     }
 
     @Override
@@ -59,7 +66,7 @@ public class EmployeeServlet extends HttpServlet {
         switch (action) {
             case "delete":
                 Long deleteEmployeeId = Long.parseLong(request.getParameter("employee-id"));
-                Long deleteEmployeeDepartmentId = Long.parseLong(request.getParameter("employee-department-id"));
+                long deleteEmployeeDepartmentId = Long.parseLong(request.getParameter("employee-department-id"));
                 try {
                     employeeDAO.deleteById(deleteEmployeeId);
                 } catch (Exception e) {
@@ -70,7 +77,7 @@ public class EmployeeServlet extends HttpServlet {
             case "add":
                 String addEmployeeName = request.getParameter("employee-name");
                 double addEmployeeSalaly = Double.parseDouble(request.getParameter("employee-salary"));
-                String addEmployeeDepartmentId = request.getParameter("employee-deparment-id");
+                String addEmployeeDepartmentId = request.getParameter("employee-department-id");
                 Department addDepartment = departmentDAO.findById(Long.parseLong(addEmployeeDepartmentId));
                 employeeDAO.addEmployee(new Employee(null, addEmployeeName, addEmployeeSalaly, addDepartment));
                 response.sendRedirect(request.getContextPath() + "/employees?department-id=" + addEmployeeDepartmentId);

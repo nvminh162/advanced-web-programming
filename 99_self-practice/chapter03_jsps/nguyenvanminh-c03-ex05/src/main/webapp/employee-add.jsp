@@ -26,10 +26,12 @@
                                                           placeholder="Enter your employee salary" value="20000000"
                                                           required>
         <br/>
-        <label for="employee-deparment-id">Department</label><input type="number" name="employee-deparment-id"
-                                                                    id="employee-deparment-id"
-                                                                    placeholder="Enter your employee deparment"
-                                                                    value="1" required>
+        <label for="employee-department-id">Department</label>
+        <select name="employee-department-id" id="employee-department-id" required>
+            <c:forEach var="department" items="${departments}">
+                <option value="${department.id}">${department.name}</option>
+            </c:forEach>
+        </select>
         <br/>
         <button type="submit">Save</button>
     </form>
