@@ -86,7 +86,7 @@ public class EmployeeServlet extends HttpServlet {
                 employeeDAO.deleteById(Long.parseLong(id));
             }
         }
-        response.sendRedirect("employees?department-id=" + departmentId);
+        response.sendRedirect("employees");
     }
 }
 
