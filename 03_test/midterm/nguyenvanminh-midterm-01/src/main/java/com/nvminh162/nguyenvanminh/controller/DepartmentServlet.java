@@ -23,10 +23,15 @@ public class DepartmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null) action = "list";
         String id = request.getParameter("id");
+        String name = request.getParameter("name");
 
+        if (action == null) action = "list";
         switch (action) {
+            case "search" -> {
+                request.setAttribute("departments", departmentDAO.findByName(name));
+                request.getRequestDispatcher("/departments.jsp").forward(request, response);
+            }
             case "list" -> {
                 request.setAttribute("departments", departmentDAO.findAll());
                 request.getRequestDispatcher("/departments.jsp").forward(request, response);

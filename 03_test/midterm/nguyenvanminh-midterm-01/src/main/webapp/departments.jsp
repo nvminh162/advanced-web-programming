@@ -20,6 +20,12 @@
 <body>
 <h1>Departments</h1>
 <a href="departments?action=create">Add department</a>
+<form action="departments" method="get">
+    <label for="name">Search department by name</label>
+    <input type="text" name="name" id="name"/>
+    <input type="hidden" name="action" value="search"/>
+    <input type="submit" value="Search"/>
+</form>
 <table style="width: 100%; text-align: left;">
     <tr>
         <th>ID</th>
@@ -37,7 +43,7 @@
                     <input type="hidden" name="id" value="${department.id}">
                     <input type="submit" value="Delete">
                 </form>
-                <a href="employees?department-id=${department.id}">Employees</a>
+                <a href="employees?action=list_belongDeptId&department-id=${department.id}">Employees</a>
             </td>
         </tr>
     </c:forEach>
@@ -47,5 +53,6 @@
         </tr>
     </c:if>
 </table>
+<a href="employees">Employees</a>
 </body>
 </html>

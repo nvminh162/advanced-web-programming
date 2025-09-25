@@ -20,6 +20,13 @@
 <body>
     <h1>Employees</h1>
     <a href="employees?action=create">Add Employee</a>
+    <form action="employees" method="get">
+        <label for="name">Search employee by name</label>
+        <input type="hidden" name="action" value="search"/>
+        <input type="text" name="name" id="name"/>
+        <input type="hidden" name="department-id" value="${param['department-id']}">
+        <input type="submit" value="Search"/>
+    </form>
     <table style="width: 100%; text-align: left;">
         <tr>
             <th>ID</th>

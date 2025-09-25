@@ -27,15 +27,30 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null) action = "list";
 
         String id = request.getParameter("id");
         String departmentId = request.getParameter("department-id");
+        String name = request.getParameter("name");
+        System.out.println(name + " ================== " + departmentId);
 
         request.setAttribute("departments", departmentDAO.findAll());
+        if (action == null) action = "list";
         switch (action) {
-            case "list" -> {
+            case "search" -> {
+                if (departmentId.isEmpty()) {
+                    request.setAttribute("employees", employeeDAO.findByName(name));
+                    request.getRequestDispatcher("/employees.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("employees", employeeDAO.findByNameBelongDepartment(name, Long.parseLong(departmentId)));
+                    request.getRequestDispatcher("/employees.jsp").forward(request, response);
+                }
+            }
+            case "list_belongDeptId" -> {
                 request.setAttribute("employees", employeeDAO.findAllBelongDepartment(Long.parseLong(departmentId)));
+                request.getRequestDispatcher("/employees.jsp").forward(request, response);
+            }
+            case "list" -> {
+                request.setAttribute("employees", employeeDAO.findAll());
                 request.getRequestDispatcher("/employees.jsp").forward(request, response);
             }
             case "create" -> {

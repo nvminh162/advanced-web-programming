@@ -1,7 +1,6 @@
 package com.nvminh162.nguyenvanminh.dao;
 
 import com.nvminh162.nguyenvanminh.util.JPAUtil;
-import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
@@ -13,17 +12,17 @@ public class GenericDAO<T, ID> {
     }
 
     public List<T> findAll() {
-        try (EntityManager em = JPAUtil.getEmf().createEntityManager()) {
-            return em.createQuery("from " + classT.getSimpleName(), classT).getResultList();
-        }
-        catch (Exception e) {
+
+        try (var em = JPAUtil.getEmf().createEntityManager()) {
+            return em.createQuery("FROM " + classT.getSimpleName(), classT).getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
-            return List.of();
         }
+        return List.of();
     }
 
     public T findById(ID id) {
-        try (EntityManager em = JPAUtil.getEmf().createEntityManager()) {
+        try (var em = JPAUtil.getEmf().createEntityManager()) {
             return em.find(classT, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +33,7 @@ public class GenericDAO<T, ID> {
     // id null => insert
     // id not null => update
     public void save(T entity) {
-        try (EntityManager em = JPAUtil.getEmf().createEntityManager()) {
+        try (var em = JPAUtil.getEmf().createEntityManager()) {
             em.getTransaction().begin();
             em.merge(entity);
             em.getTransaction().commit();
@@ -44,7 +43,7 @@ public class GenericDAO<T, ID> {
     }
 
     public void deleteById(ID id) {
-        try (EntityManager em = JPAUtil.getEmf().createEntityManager()) {
+        try (var em = JPAUtil.getEmf().createEntityManager()) {
             em.getTransaction().begin();
             T entity = em.find(classT, id);
             if (entity != null) em.remove(entity);
