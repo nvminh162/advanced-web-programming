@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+    <persistence-unit name="nguyenvanminh_mariadb">
+        <class>com.nvminh162.nguyenvanminh.model.Book</class>
+        <class>com.nvminh162.nguyenvanminh.model.Order</class>
+        <properties>
+            <!-- driver | driverClassName="org.mariadb.jdbc.Driver" -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <!-- url | url="jdbc:mariadb://localhost:3307/www_midterm_01" -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3307/www_midterm_02"/>
+            <!-- user | username="root" -->
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <!-- password | password="root" -->
+            <property name="jakarta.persistence.jdbc.password" value="root"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
