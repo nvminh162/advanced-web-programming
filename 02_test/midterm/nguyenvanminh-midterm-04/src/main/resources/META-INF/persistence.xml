@@ -4,8 +4,7 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
              version="3.2">
     <persistence-unit name="nguyenvanminh_mariadb">
-        <!-- <class>com.nvminh162.nguyenvanminh.model.LoaiThuoc</class >-->
-        <!-- <class>com.nvminh162.nguyenvanminh.model.Thuoc</class >-->
+        <class>com.nvminh162.nguyenvanminhmidterm04.model.Account</class>
         <properties>
             <!-- driver | driverClassName="org.mariadb.jdbc.Driver" -->
             <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
