@@ -1,7 +1,6 @@
 package com.nvminh162.nguyenvanminh.dao;
 
 import com.nvminh162.nguyenvanminh.util.JPAUtil;
-import jakarta.persistence.OptimisticLockException;
 
 import java.util.List;
 
@@ -34,25 +33,12 @@ public class GenericDAO<T, ID> {
     // id null => insert
     // id not null => update
     public void save(T entity) {
-        var em = JPAUtil.getEmf().createEntityManager();
-        var transaction = em.getTransaction();
-        try {
-            transaction.begin();
+        try (var em = JPAUtil.getEmf().createEntityManager()) {
+            em.getTransaction().begin();
             em.merge(entity);
-            transaction.commit();
-        } catch (OptimisticLockException e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e; // Re-throw to allow retry logic in caller
+            em.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-            throw new RuntimeException("Error saving entity", e);
-        } finally {
-            em.close();
         }
     }
 
