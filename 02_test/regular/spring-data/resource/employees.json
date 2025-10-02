@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "68c73b3e57c86db9eacd1625"
+  },
+  "empId": "E001",
+  "empName": "Alice Packer",
+  "email": "Alicepaker@gmail.com",
+  "age": 20,
+  "status": 1,
+  "deptId": "D002",
+  "salary": 1000
+},{
+  "_id": {
+    "$oid": "68c73b3e57c86db9eacd1626"
+  },
+  "empId": "E002",
+  "empName": "Bob",
+  "email": "bob@example.com",
+  "age": 30,
+  "status": 1,
+  "deptId": "D001",
+  "salary": 1200
+},{
+  "_id": {
+    "$oid": "68c73b3e57c86db9eacd1627"
+  },
+  "empId": "E003",
+  "empName": "Charlie",
+  "email": "charlie@example.com",
+  "age": 28,
+  "status": 0,
+  "deptId": "D001",
+  "salary": 1400
+},{
+  "_id": {
+    "$oid": "68c84078de1b26cc429f9f04"
+  },
+  "empId": "E004",
+  "empName": "Nguyen Van Dat",
+  "email": "nguyenvandat@gmail.com",
+  "age": 25,
+  "status": 1,
+  "deptId": "D001",
+  "salary": 1600
+},{
+  "_id": {
+    "$oid": "68c842f6de1b26cc429f9f07"
+  },
+  "empId": "E005",
+  "empName": "Peter Packer",
+  "email": "Peter@gmail.com",
+  "age": 26,
+  "status": 0,
+  "deptId": "D002",
+  "salary": 1800
+},{
+  "_id": {
+    "$oid": "68ca6a241666ab11c170f9ba"
+  },
+  "empId": "E011",
+  "empName": "Tom Cruise",
+  "email": "Tom@gmail.com",
+  "age": 50,
+  "status": 0,
+  "deptId": "D002",
+  "salary": 2000
+},{
+  "_id": {
+    "$oid": "68ce851b4c2b0f5f5ef66d3e"
+  },
+  "empId": "E012",
+  "empName": "Mai Lan Phuong",
+  "email": "mlphuong@gmail.com",
+  "age": 22,
+  "status": 1,
+  "deptId": "D002",
+  "salary": 3000
+},{
+  "_id": {
+    "$oid": "68cfb3619ef70a2be768b14f"
+  },
+  "empId": "E013",
+  "empName": "Pham Hoang Phong",
+  "email": "phong@gmail.com",
+  "age": 22,
+  "salary": 3000,
+  "status": 0,
+  "deptId": "D002",
+  "_class": "fit.se.emp.model.Employee"
+}]

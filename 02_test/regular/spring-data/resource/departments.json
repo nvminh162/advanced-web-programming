@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "68c73b4e57c86db9eacd1628"
+  },
+  "deptId": "D001",
+  "deptName": "IT",
+  "employees": [
+    {
+      "empId": "E001",
+      "empName": "Alice",
+      "email": "alice@example.com",
+      "age": 25,
+      "status": 1
+    },
+    {
+      "empId": "E002",
+      "empName": "Bob",
+      "email": "bob@example.com",
+      "age": 30,
+      "status": 1
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "68c73b4e57c86db9eacd1629"
+  },
+  "deptId": "D002",
+  "deptName": "HR",
+  "employees": [
+    {
+      "empId": "E003",
+      "empName": "Charlie",
+      "email": "charlie@example.com",
+      "age": 28,
+      "status": 0
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "68cf991b6adb223a533e76fe"
+  },
+  "deptId": "D003",
+  "name": "Develop"
+}]
