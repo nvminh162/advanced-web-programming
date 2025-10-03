@@ -1,7 +1,5 @@
 package com.nvminh162.nguyenvanminh.controller;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,13 +40,8 @@ public class EmployeeController {
             employees = employeeService.getEmployeesByAge(searchAge);
             model.addAttribute("searchAge", searchAge);
         } else if (departmentId != null && !departmentId.trim().isEmpty()) {
-            try {
-                UUID deptId = UUID.fromString(departmentId);
-                employees = employeeService.getEmployeesByDepartmentId(deptId);
-                model.addAttribute("departmentId", departmentId);
-            } catch (IllegalArgumentException e) {
-                employees = employeeService.getAllEmployees();
-            }
+            employees = employeeService.getEmployeesByDepartmentId(departmentId);
+            model.addAttribute("departmentId", departmentId);
         } else if (salaryFrom != null || salaryTo != null) {
             double from = (salaryFrom != null) ? salaryFrom : 0;
             double to = (salaryTo != null) ? salaryTo : 0;
@@ -66,8 +59,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public String getEmployeeById(@PathVariable("id") String id, Model model) {
-        UUID uuid = UUID.fromString(id);
-        model.addAttribute("employee", employeeService.getEmployeeById(uuid));
+        model.addAttribute("employee", employeeService.getEmployeeById(id));
         return "employee/employee-detail";
     }
 
@@ -86,24 +78,21 @@ public class EmployeeController {
 
     @GetMapping("/{id}/update")
     public String showEditForm(@PathVariable("id") String id, Model model) {
-        UUID uuid = UUID.fromString(id);
-        model.addAttribute("employee", employeeService.getEmployeeById(uuid));
+        model.addAttribute("employee", employeeService.getEmployeeById(id));
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "employee/employee-form";
     }
 
     @PostMapping("/{id}")
     public String updateEmployee(@PathVariable("id") String id, @ModelAttribute Employee employee) {
-        UUID uuid = UUID.fromString(id);
-        employee.setId(uuid);
+        employee.setId(id);
         employeeService.updateEmployee(employee);
         return "redirect:/employees/" + id;
     }
 
     @PostMapping("/{id}/delete")
     public String deleteEmployee(@PathVariable("id") String id) {
-        UUID uuid = UUID.fromString(id);
-        employeeService.deleteEmployee(uuid);
+        employeeService.deleteEmployee(id);
         return "redirect:/employees";
     }
 }

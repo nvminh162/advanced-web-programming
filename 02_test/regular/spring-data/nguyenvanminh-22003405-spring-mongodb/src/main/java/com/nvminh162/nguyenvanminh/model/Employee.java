@@ -1,15 +1,10 @@
 package com.nvminh162.nguyenvanminh.model;
 
-import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@Entity
-@Table(name = "employees")
+@Document(collection = "employees")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,25 +20,23 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
-    
-    @Column(name = "name", nullable = false)
+    String id;
+
+    @Field(name = "name")
     String name;
     
-    @Column(name = "email", nullable = false, unique = true)
+    @Field(name = "email")
     String email;
     
-    @Column(name = "age")
+    @Field(name = "age")
     int age;
     
-    @Column(name = "salary")
+    @Field(name = "salary")
     double salary;
     
-    @Column(name = "status")
+    @Field(name = "status")
     int status;
     
-    @ManyToOne
-    @JoinColumn(name = "department_id")
+    @DBRef
     Department department;
 }
