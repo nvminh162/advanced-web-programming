@@ -40,4 +40,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(UUID id) {
         employeeDAO.delete(id);
     }
+
+    @Override
+    public List<Employee> getEmployeesByDepartmentId(UUID departmentId) {
+        return employeeDAO.findByDepartmentId(departmentId);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByName(String name) {
+        return employeeDAO.findByName(name);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByAge(int age) {
+        return employeeDAO.findByAge(age);
+    }
+
+    @Override
+    public List<Employee> getEmployeesBySalaryRange(double from, double to) {
+        return employeeDAO.findByInSalary(from, to);
+    }
 }

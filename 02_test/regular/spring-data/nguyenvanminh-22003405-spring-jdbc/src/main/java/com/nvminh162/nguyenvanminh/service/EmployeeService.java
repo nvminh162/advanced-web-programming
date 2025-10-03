@@ -15,4 +15,12 @@ public interface EmployeeService {
     void updateEmployee(Employee employee);
 
     void deleteEmployee(UUID id);
+
+    List<Employee> getEmployeesByDepartmentId(UUID departmentId);
+
+    List<Employee> getEmployeesByName(String name);
+
+    List<Employee> getEmployeesByAge(int age);
+
+    List<Employee> getEmployeesBySalaryRange(double from, double to);
 }

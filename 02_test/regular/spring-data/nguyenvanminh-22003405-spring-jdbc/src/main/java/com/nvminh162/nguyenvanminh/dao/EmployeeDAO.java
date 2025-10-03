@@ -15,4 +15,12 @@ public interface EmployeeDAO {
     void update(Employee employee);
 
     void delete(UUID id);
+
+    List<Employee> findByDepartmentId(UUID departmentId);
+
+    List<Employee> findByName(String name);
+
+    List<Employee> findByAge(int age);
+
+    List<Employee> findByInSalary(double from, double to);
 }

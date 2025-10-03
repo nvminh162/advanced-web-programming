@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nvminh162.nguyenvanminh.model.Employee;
 import com.nvminh162.nguyenvanminh.service.DepartmentService;
@@ -24,8 +25,42 @@ public class EmployeeController {
     private final DepartmentService departmentService;
 
     @GetMapping
-    public String getAllEmployees(Model model) {
-        model.addAttribute("employees", employeeService.getAllEmployees());
+    public String getAllEmployees(
+            @RequestParam(value = "searchName", required = false) String searchName,
+            @RequestParam(value = "searchAge", required = false) Integer searchAge,
+            @RequestParam(value = "departmentId", required = false) String departmentId,
+            @RequestParam(value = "salaryFrom", required = false) Double salaryFrom,
+            @RequestParam(value = "salaryTo", required = false) Double salaryTo,
+            Model model) {
+        
+        java.util.List<Employee> employees;
+        
+        if (searchName != null && !searchName.trim().isEmpty()) {
+            employees = employeeService.getEmployeesByName(searchName.trim());
+            model.addAttribute("searchName", searchName);
+        } else if (searchAge != null) {
+            employees = employeeService.getEmployeesByAge(searchAge);
+            model.addAttribute("searchAge", searchAge);
+        } else if (departmentId != null && !departmentId.trim().isEmpty()) {
+            try {
+                UUID deptId = UUID.fromString(departmentId);
+                employees = employeeService.getEmployeesByDepartmentId(deptId);
+                model.addAttribute("departmentId", departmentId);
+            } catch (IllegalArgumentException e) {
+                employees = employeeService.getAllEmployees();
+            }
+        } else if (salaryFrom != null || salaryTo != null) {
+            double from = (salaryFrom != null) ? salaryFrom : 0;
+            double to = (salaryTo != null) ? salaryTo : 0;
+            employees = employeeService.getEmployeesBySalaryRange(from, to);
+            model.addAttribute("salaryFrom", salaryFrom);
+            model.addAttribute("salaryTo", salaryTo);
+        } else {
+            employees = employeeService.getAllEmployees();
+        }
+        
+        model.addAttribute("employees", employees);
+        model.addAttribute("departments", departmentService.getAllDepartments());
         return "employee/employee-list";
     }
 

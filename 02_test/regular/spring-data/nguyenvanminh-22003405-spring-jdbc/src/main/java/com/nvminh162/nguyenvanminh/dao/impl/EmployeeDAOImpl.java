@@ -97,4 +97,77 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String sql = "DELETE FROM employees WHERE id = ?";
         jdbcTemplate.update(sql, id.toString());
     }
+
+    @Override
+    public List<Employee> findByDepartmentId(UUID departmentId) {
+        String sql = """
+                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                FROM employees e
+                JOIN departments d ON e.department_id = d.id
+                WHERE e.department_id = ?
+                """;
+        return jdbcTemplate.query(sql, rowMapper, departmentId.toString());
+    }
+
+    @Override
+    public List<Employee> findByName(String name) {
+        String sql = """
+                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                FROM employees e
+                JOIN departments d ON e.department_id = d.id
+                WHERE e.name LIKE ?
+                """;
+        return jdbcTemplate.query(sql, rowMapper, "%" + name + "%");
+    }
+
+    @Override
+    public List<Employee> findByAge(int age) {
+        String sql = """
+                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                FROM employees e
+                JOIN departments d ON e.department_id = d.id
+                WHERE e.age = ?
+                """;
+        return jdbcTemplate.query(sql, rowMapper, age);
+    }
+
+    @Override
+    public List<Employee> findByInSalary(double from, double to) {
+        String sql;
+        Object[] params;
+        
+        if (from > 0 && to > 0) {
+            // Tìm trong khoảng from đến to
+            sql = """
+                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    FROM employees e
+                    JOIN departments d ON e.department_id = d.id
+                    WHERE e.salary BETWEEN ? AND ?
+                    """;
+            params = new Object[]{from, to};
+        } else if (from > 0 && to <= 0) {
+            // Tìm từ from đến vô cực
+            sql = """
+                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    FROM employees e
+                    JOIN departments d ON e.department_id = d.id
+                    WHERE e.salary >= ?
+                    """;
+            params = new Object[]{from};
+        } else if (from <= 0 && to > 0) {
+            // Tìm từ 0 đến to
+            sql = """
+                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    FROM employees e
+                    JOIN departments d ON e.department_id = d.id
+                    WHERE e.salary <= ?
+                    """;
+            params = new Object[]{to};
+        } else {
+            // Nếu cả hai đều <= 0, trả về danh sách rỗng
+            return List.of();
+        }
+        
+        return jdbcTemplate.query(sql, rowMapper, params);
+    }
 }

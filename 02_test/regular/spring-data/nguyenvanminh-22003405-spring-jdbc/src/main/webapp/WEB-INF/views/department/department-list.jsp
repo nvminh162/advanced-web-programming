@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <h2>Danh Sách Phòng Ban</h2>
+                <h2>Nguyen Van Minh - 22003405 - Danh Sách Phòng Ban</h2>
                 <a href="/departments/create" class="btn btn-primary mb-3">Thêm Phòng Ban</a>
                 <a href="/employees" class="btn btn-secondary mb-3">Danh Sách Nhân Viên</a>
                 
@@ -18,18 +18,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Tên Phòng Ban</th>
                                 <th>ID</th>
+                                <th>Tên Phòng Ban</th>
                                 <th>Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="department" items="${departments}" varStatus="status">
                                 <tr>
-                                    <td>${status.index + 1}</td>
-                                    <td>${department.name}</td>
                                     <td><code class="small">${department.id}</code></td>
+                                    <td>${department.name}</td>
                                     <td>
                                         <a href="/departments/${department.id}" class="btn btn-sm btn-info">Xem</a>
                                         <a href="/departments/${department.id}/update" class="btn btn-sm btn-warning">Sửa</a>
