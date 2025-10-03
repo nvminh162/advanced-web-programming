@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RootController {
     @GetMapping("/")
     public String getRoot(Model model) {
-        model.addAttribute("nvminh162", "Nguyễn Văn Minh - 22003405 - Spring JDBC");
+        model.addAttribute("nvminh162", "Nguyễn Văn Minh - 22003405 - Spring JPA");
         return "index";
     }
 }
