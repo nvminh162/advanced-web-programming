@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: nguyenvanminh-22003405-spring-mongodb
+  data:
+    mongodb:
+      uri: 
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  web:
+    resources:
+      static-locations: /resources/
+
