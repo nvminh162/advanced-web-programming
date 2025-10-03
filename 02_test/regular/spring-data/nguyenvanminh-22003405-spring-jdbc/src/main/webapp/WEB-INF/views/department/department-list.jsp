@@ -18,7 +18,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Tên Phòng Ban</th>
                                 <th>Thao Tác</th>
                             </tr>
@@ -26,7 +25,6 @@
                         <tbody>
                             <c:forEach var="department" items="${departments}" varStatus="status">
                                 <tr>
-                                    <td><code class="small">${department.id}</code></td>
                                     <td>${department.name}</td>
                                     <td>
                                         <a href="/departments/${department.id}" class="btn btn-sm btn-info">Xem</a>
