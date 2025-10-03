@@ -1,6 +1,6 @@
 spring:
   application:
-    name: nguyenvanminh-22003405-spring-jdbc
+    name: nguyenvanminh-22003405-spring-jpa
 
   mvc:
     view:
@@ -12,10 +12,19 @@ spring:
       static-locations: /resources/
 
   datasource:
-    url: jdbc:mariadb://localhost:3307/www_regular_spring_jdbc
+    url: jdbc:mariadb://localhost:3307/www_regular_spring_jpa
     username: root
     password: root
     driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        '[format_sql]': true
 
 logging:
   pattern:

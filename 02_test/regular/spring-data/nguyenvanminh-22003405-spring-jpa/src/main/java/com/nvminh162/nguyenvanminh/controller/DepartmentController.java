@@ -42,7 +42,7 @@ public class DepartmentController {
 
     @PostMapping
     public String createDepartment(@ModelAttribute Department department) {
-        department.setId(UUID.randomUUID());
+        // JPA sẽ tự động generate UUID, không cần set manually
         departmentService.createDepartment(department);
         return "redirect:/departments";
     }

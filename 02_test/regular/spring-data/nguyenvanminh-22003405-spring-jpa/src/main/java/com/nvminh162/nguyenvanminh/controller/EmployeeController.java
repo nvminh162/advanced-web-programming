@@ -80,7 +80,7 @@ public class EmployeeController {
 
     @PostMapping
     public String createEmployee(@ModelAttribute Employee employee) {
-        employee.setId(UUID.randomUUID());
+        // JPA sẽ tự động generate UUID, không cần set manually
         employeeService.createEmployee(employee);
         return "redirect:/employees";
     }
