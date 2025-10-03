@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: nguyenvanminh-22003405-spring-jdbc
+
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  web:
+    resources:
+      static-locations: /resources/
+
+  datasource:
+    url: jdbc:mariadb://localhost:3307/www_regular_spring_jdbc
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
