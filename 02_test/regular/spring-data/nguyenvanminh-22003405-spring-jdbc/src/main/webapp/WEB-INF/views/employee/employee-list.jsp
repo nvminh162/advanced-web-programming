@@ -72,10 +72,12 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>Tên</th>
+                                <th>Email</th>
                                 <th>Tuổi</th>
                                 <th>Lương</th>
+                                <th>Trạng thái</th>
                                 <th>Phòng Ban</th>
                                 <th>Thao Tác</th>
                             </tr>
@@ -83,10 +85,21 @@
                         <tbody>
                             <c:forEach var="employee" items="${employees}" varStatus="status">
                                 <tr>
-                                    <td>${employee.id}</td>
+                                    <td>${status.index + 1}</td>
                                     <td>${employee.name}</td>
+                                    <td>${employee.email}</td>
                                     <td>${employee.age} tuổi</td>
                                     <td><fmt:formatNumber value="${employee.salary}" type="number" maxFractionDigits="0"/>₫</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${employee.status == 1}">
+                                                <span class="badge bg-success">Hoạt động</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="badge bg-secondary">Không hoạt động</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>
                                         <c:if test="${employee.department != null}">
                                             ${employee.department.name}

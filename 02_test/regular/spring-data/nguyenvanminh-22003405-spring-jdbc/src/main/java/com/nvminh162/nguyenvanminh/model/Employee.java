@@ -17,7 +17,9 @@ import lombok.experimental.FieldDefaults;
 public class Employee {
     UUID id;
     String name;
+    String email;
     int age;
     double salary;
+    int status;
     Department department;
 }

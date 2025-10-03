@@ -23,6 +23,11 @@
                     </div>
                     
                     <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="${employee.email}" required>
+                    </div>
+                    
+                    <div class="mb-3">
                         <label for="age" class="form-label">Tuổi</label>
                         <input type="number" class="form-control" id="age" name="age" value="${employee.age}" required min="18" max="65">
                     </div>
@@ -30,6 +35,14 @@
                     <div class="mb-3">
                         <label for="salary" class="form-label">Lương</label>
                         <input type="number" class="form-control" id="salary" name="salary" value="${employee.salary}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Trạng thái</label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="1" <c:if test="${employee.status == 1}">selected</c:if>>Hoạt động</option>
+                            <option value="0" <c:if test="${employee.status == 0}">selected</c:if>>Không hoạt động</option>
+                        </select>
                     </div>
                     
                     <div class="mb-3">

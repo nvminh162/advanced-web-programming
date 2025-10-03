@@ -19,10 +19,22 @@
                         <div class="card-body">
                             <h5 class="card-title">${employee.name}</h5>
                             <p class="card-text"><strong>ID:</strong> ${employee.id}</p>
+                            <p class="card-text"><strong>Email:</strong> ${employee.email}</p>
                             <p class="card-text"><strong>Tuổi:</strong> ${employee.age} tuổi</p>
                             <p class="card-text">
                                 <strong>Lương:</strong> 
                                 <fmt:formatNumber value="${employee.salary}" type="number" maxFractionDigits="0"/>₫
+                            </p>
+                            <p class="card-text">
+                                <strong>Trạng thái:</strong>
+                                <c:choose>
+                                    <c:when test="${employee.status == 1}">
+                                        <span class="badge bg-success">Hoạt động</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge bg-secondary">Không hoạt động</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </p>
                             <p class="card-text">
                                 <strong>Phòng Ban:</strong> 

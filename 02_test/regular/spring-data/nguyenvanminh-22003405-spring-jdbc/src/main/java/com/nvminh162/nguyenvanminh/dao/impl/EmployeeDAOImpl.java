@@ -30,8 +30,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             return Employee.builder()
                     .id(UUID.fromString(rs.getString("id")))
                     .name(rs.getString("name"))
+                    .email(rs.getString("email"))
                     .age(rs.getInt("age"))
                     .salary(rs.getDouble("salary"))
+                    .status(rs.getInt("status"))
                     .department(
                             Department.builder()
                                     .id(UUID.fromString(rs.getString("department_id")))
@@ -44,7 +46,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> findAll() {
         String sql = """
-                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                 FROM employees e
                 JOIN departments d ON e.department_id = d.id;
                 """;
@@ -54,7 +56,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public Employee findById(UUID id) {
         String sql = """
-                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                 FROM employees e
                 JOIN departments d ON e.department_id = d.id
                 WHERE e.id = ?
@@ -66,14 +68,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void save(Employee employee) {
         String sql = """
-                INSERT INTO employees (id, name, age, salary, department_id)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO employees (id, name, email, age, salary, status, department_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
         jdbcTemplate.update(sql,
                 employee.getId().toString(),
                 employee.getName(),
+                employee.getEmail(),
                 employee.getAge(),
                 employee.getSalary(),
+                employee.getStatus(),
                 employee.getDepartment().getId().toString());
     }
 
@@ -81,13 +85,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public void update(Employee employee) {
         String sql = """
                 UPDATE employees
-                SET name = ?, age = ?, salary = ?, department_id = ?
+                SET name = ?, email = ?, age = ?, salary = ?, status = ?, department_id = ?
                 WHERE id = ?
                 """;
         jdbcTemplate.update(sql,
                 employee.getName(),
+                employee.getEmail(),
                 employee.getAge(),
                 employee.getSalary(),
+                employee.getStatus(),
                 employee.getDepartment().getId().toString(),
                 employee.getId().toString());
     }
@@ -101,7 +107,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> findByDepartmentId(UUID departmentId) {
         String sql = """
-                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                 FROM employees e
                 JOIN departments d ON e.department_id = d.id
                 WHERE e.department_id = ?
@@ -112,7 +118,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> findByName(String name) {
         String sql = """
-                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                 FROM employees e
                 JOIN departments d ON e.department_id = d.id
                 WHERE e.name LIKE ?
@@ -123,7 +129,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> findByAge(int age) {
         String sql = """
-                SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                 FROM employees e
                 JOIN departments d ON e.department_id = d.id
                 WHERE e.age = ?
@@ -139,7 +145,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         if (from > 0 && to > 0) {
             // Tìm trong khoảng from đến to
             sql = """
-                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                     FROM employees e
                     JOIN departments d ON e.department_id = d.id
                     WHERE e.salary BETWEEN ? AND ?
@@ -148,7 +154,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         } else if (from > 0 && to <= 0) {
             // Tìm từ from đến vô cực
             sql = """
-                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                     FROM employees e
                     JOIN departments d ON e.department_id = d.id
                     WHERE e.salary >= ?
@@ -157,7 +163,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         } else if (from <= 0 && to > 0) {
             // Tìm từ 0 đến to
             sql = """
-                    SELECT e.id, e.name, e.age, e.salary, e.department_id, d.name AS department_name
+                    SELECT e.id, e.name, e.email, e.age, e.salary, e.status, e.department_id, d.name AS department_name
                     FROM employees e
                     JOIN departments d ON e.department_id = d.id
                     WHERE e.salary <= ?
